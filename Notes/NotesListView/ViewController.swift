@@ -19,6 +19,8 @@ protocol ViewOutputDelegate: AnyObject {
 	func removeData(noteIndex: IndexPath)
 	func numberOfItem() -> Int
 	func viewDidLoad()
+	func addNoteTapped()
+	func selectNoteCnahge(noteIndex: Int)
 }
 
 
@@ -69,8 +71,8 @@ final class ViewController: UIViewController {
 		setupView()
 		setupConstraints()
 		setupCollectionView()
-//		addNoteView.configure(text: presenter!.getAllData().count)
 		presenter?.viewDidLoad()
+		addNoteView.noteDelegate = self
 		
 	}
 
@@ -136,7 +138,6 @@ final class ViewController: UIViewController {
 				addNoteView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 				addNoteView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 				addNoteView.heightAnchor.constraint(equalToConstant: view.frame.height / 10)
-//				addNoteView.topAnchor.constraint(equalTo: view.topAnchor, constant: 500)
 
 			]
 		)
@@ -176,6 +177,12 @@ extension ViewController: UISearchResultsUpdating {
 
 extension ViewController: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		// тут должен быть переход на экран редактирования заметки
+		presenter?.selectNoteCnahge(noteIndex: indexPath.row)
+	}
+}
+
+extension ViewController: AddNoteViewDelegate {
+	func addNoteButtonTapped() {
+		presenter?.addNoteTapped()
 	}
 }

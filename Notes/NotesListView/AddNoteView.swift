@@ -8,6 +8,10 @@
 import Foundation
 import UIKit
 
+protocol AddNoteViewDelegate: AnyObject {
+	func addNoteButtonTapped()
+}
+
 class AddNoteView: UIView {
 
 	private let addNoteButton: UIButton = {
@@ -25,10 +29,13 @@ class AddNoteView: UIView {
 		return totalNotesLabel
 	}()
 
+	weak var noteDelegate: AddNoteViewDelegate?
+
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		setupViews()
 		setUpConstraints()
+		setupRecognizer()
 		backgroundColor = .secondarySystemBackground
 	}
 
@@ -38,6 +45,14 @@ class AddNoteView: UIView {
 
 	func configure(text: Int) {
 		totalNotesLabel.text = "\(text) Notes"
+	}
+
+	private func setupRecognizer() {
+		let recognizer = UITapGestureRecognizer(target: self, action: #selector(addNoteButtonPressed))
+		addNoteButton.addGestureRecognizer(recognizer)
+	}
+	@objc private func addNoteButtonPressed() {
+		noteDelegate?.addNoteButtonTapped()
 	}
 
 	private func setupViews() {

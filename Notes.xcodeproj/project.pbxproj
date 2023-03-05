@@ -19,6 +19,9 @@
 		961F352429B1613C005EBCD4 /* NotesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961F352329B1613C005EBCD4 /* NotesCollectionViewCell.swift */; };
 		961F352629B28FAF005EBCD4 /* NotesListViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961F352529B28FAF005EBCD4 /* NotesListViewBuilder.swift */; };
 		961F352929B4028A005EBCD4 /* AddNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961F352829B4028A005EBCD4 /* AddNoteView.swift */; };
+		961F352C29B4D1F9005EBCD4 /* AddNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961F352B29B4D1F9005EBCD4 /* AddNoteViewController.swift */; };
+		961F352E29B4DE63005EBCD4 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961F352D29B4DE63005EBCD4 /* Router.swift */; };
+		961F353029B4FDC2005EBCD4 /* AddNotePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961F352F29B4FDC2005EBCD4 /* AddNotePresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +39,9 @@
 		961F352329B1613C005EBCD4 /* NotesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesCollectionViewCell.swift; sourceTree = "<group>"; };
 		961F352529B28FAF005EBCD4 /* NotesListViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesListViewBuilder.swift; sourceTree = "<group>"; };
 		961F352829B4028A005EBCD4 /* AddNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNoteView.swift; sourceTree = "<group>"; };
+		961F352B29B4D1F9005EBCD4 /* AddNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNoteViewController.swift; sourceTree = "<group>"; };
+		961F352D29B4DE63005EBCD4 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		961F352F29B4FDC2005EBCD4 /* AddNotePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNotePresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +76,7 @@
 			children = (
 				961F351529AFF28B005EBCD4 /* NotesListView */,
 				961F351429AFF281005EBCD4 /* Model */,
+				961F352A29B4D1B5005EBCD4 /* AddNoteView */,
 				961F34FD29AE8CD6005EBCD4 /* AppDelegate.swift */,
 				961F34FF29AE8CD6005EBCD4 /* SceneDelegate.swift */,
 				961F350329AE8CD6005EBCD4 /* Main.storyboard */,
@@ -96,6 +103,7 @@
 				961F350129AE8CD6005EBCD4 /* ViewController.swift */,
 				961F351929AFF3AC005EBCD4 /* Presenter.swift */,
 				961F352829B4028A005EBCD4 /* AddNoteView.swift */,
+				961F352D29B4DE63005EBCD4 /* Router.swift */,
 				961F352729B290A9005EBCD4 /* Views */,
 			);
 			path = NotesListView;
@@ -107,6 +115,15 @@
 				961F352329B1613C005EBCD4 /* NotesCollectionViewCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		961F352A29B4D1B5005EBCD4 /* AddNoteView */ = {
+			isa = PBXGroup;
+			children = (
+				961F352B29B4D1F9005EBCD4 /* AddNoteViewController.swift */,
+				961F352F29B4FDC2005EBCD4 /* AddNotePresenter.swift */,
+			);
+			path = AddNoteView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -180,6 +197,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				961F353029B4FDC2005EBCD4 /* AddNotePresenter.swift in Sources */,
+				961F352E29B4DE63005EBCD4 /* Router.swift in Sources */,
 				961F352629B28FAF005EBCD4 /* NotesListViewBuilder.swift in Sources */,
 				961F351A29AFF3AC005EBCD4 /* Presenter.swift in Sources */,
 				961F351829AFF355005EBCD4 /* Note.swift in Sources */,
@@ -188,6 +207,7 @@
 				961F350029AE8CD6005EBCD4 /* SceneDelegate.swift in Sources */,
 				961F352929B4028A005EBCD4 /* AddNoteView.swift in Sources */,
 				961F350829AE8CD6005EBCD4 /* Notes.xcdatamodeld in Sources */,
+				961F352C29B4D1F9005EBCD4 /* AddNoteViewController.swift in Sources */,
 				961F352429B1613C005EBCD4 /* NotesCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

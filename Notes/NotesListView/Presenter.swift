@@ -11,10 +11,13 @@ final class Presenter {
 
 	weak var view: ViewInputDelegate?
 
-	var storage: StorageProtocol
+	let storage: StorageProtocol
+	let router: RouterInput
 
-	init(storage: StorageProtocol) {
+	init(storage: StorageProtocol, router: RouterInput) {
 		self.storage = storage
+		self.router = router
+
 	}
 
 	private func updateList() {
@@ -25,6 +28,10 @@ final class Presenter {
 
 
 extension Presenter: ViewOutputDelegate {
+	func selectNoteCnahge(noteIndex: Int) {
+		router.showAddNote(note: storage.notes[noteIndex], output: self)
+	}
+
 	func viewDidLoad() {
 		updateList()
 	}
@@ -42,4 +49,13 @@ extension Presenter: ViewOutputDelegate {
 		storage.notes.count
 	}
 
+	func addNoteTapped() {
+		router.showAddNote(note: nil, output: self)
+	}
+}
+
+extension Presenter: AddNoteOutput {
+	func noteWasChange(note: Note) {
+		print(note)
+	}
 }

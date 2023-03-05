@@ -15,6 +15,7 @@ final class NotesListViewBuilder: NotesListViewBuilderProtocol {
 
 	var storage: StorageProtocol
 
+
 	init(storage: StorageProtocol) {
 		self.storage = storage
 	}
@@ -22,8 +23,10 @@ final class NotesListViewBuilder: NotesListViewBuilderProtocol {
 	// MARK: - NotesListViewBuilderProtocol
 
 	func build() -> UIViewController {
-		let presenter = Presenter(storage: storage)
+		let router = Router()
+		let presenter = Presenter(storage: storage, router: router)
 		let viewController = ViewController(presenter: presenter)
+		router.view = viewController
 		presenter.view = viewController
 		return viewController
 	}
