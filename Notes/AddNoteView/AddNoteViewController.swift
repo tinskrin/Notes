@@ -10,6 +10,7 @@ import UIKit
 protocol AddNoteInputDelegate: AnyObject {
 	func updateView(text: String)
 }
+
 protocol AddNoteOutputDelegate: AnyObject {
 	func viewDidLoad()
 	func doneButtonTapped()
@@ -27,6 +28,8 @@ class AddNoteViewController: UIViewController {
 	}()
 	private var presenter: AddNoteOutputDelegate?
 
+	// MARK: - Init
+
 	init(presenter: AddNoteOutputDelegate) {
 		self.presenter = presenter
 		super.init(nibName: nil, bundle: nil)
@@ -36,15 +39,13 @@ class AddNoteViewController: UIViewController {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	// MARK: - Lifecycle
+	
 	override func viewDidLoad() {
         super.viewDidLoad()
-		view.backgroundColor = .systemBackground
-		view.addSubview(noteText)
-		setUpConstraints()
-		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped))
+		setupView()
+		setupConstraints()
 		presenter?.viewDidLoad()
-		noteText.delegate = self
-
     }
 
 	override func viewWillDisappear(_ animated: Bool) {
@@ -55,26 +56,37 @@ class AddNoteViewController: UIViewController {
 	@objc private func doneButtonTapped() {
 		guard let presenter = presenter else { return }
 		presenter.doneButtonTapped()
+		noteText.resignFirstResponder()
 	}
 
+	private func setupView() {
+		view.backgroundColor = .systemBackground
+		view.addSubview(noteText)
+		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped))
+		noteText.delegate = self
+	}
 
-	private func setUpConstraints() {
+	private func setupConstraints() {
 		NSLayoutConstraint.activate(
-	[
-		noteText.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-		noteText.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-		noteText.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-		noteText.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-	]
+			[
+				noteText.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+				noteText.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+				noteText.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+				noteText.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
+			]
 		)
 	}
 }
+
+// MARK: - AddNoteInputDelegate
 
 extension AddNoteViewController: AddNoteInputDelegate {
 	func updateView(text: String) {
 		noteText.text = text
 	}
 }
+
+// MARK: - UITextViewDelegate
 
 extension AddNoteViewController: UITextViewDelegate {
 	func textViewDidChange(_ textView: UITextView) {

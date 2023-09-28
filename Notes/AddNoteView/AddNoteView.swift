@@ -14,6 +14,8 @@ protocol AddNoteViewDelegate: AnyObject {
 
 class AddNoteView: UIView {
 
+	// MARK: - UI
+
 	private let addNoteButton: UIButton = {
 		let addNoteButton = UIButton()
 		let addNoteImage = UIImage(named: "addNote")?.withTintColor(.systemBrown)
@@ -31,31 +33,38 @@ class AddNoteView: UIView {
 
 	weak var noteDelegate: AddNoteViewDelegate?
 
+	// MARK: - Init
+
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		setupViews()
 		setUpConstraints()
 		setupRecognizer()
-		backgroundColor = .secondarySystemBackground
 	}
 
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	// MARK: - Configure
+	
 	func configure(text: Int) {
 		totalNotesLabel.text = "\(text) Notes"
 	}
+
+	// MARK: - Private
 
 	private func setupRecognizer() {
 		let recognizer = UITapGestureRecognizer(target: self, action: #selector(addNoteButtonPressed))
 		addNoteButton.addGestureRecognizer(recognizer)
 	}
+
 	@objc private func addNoteButtonPressed() {
 		noteDelegate?.addNoteButtonTapped()
 	}
 
 	private func setupViews() {
+		backgroundColor = .secondarySystemBackground
 		addSubview(addNoteButton)
 		addSubview(totalNotesLabel)
 	}
@@ -64,13 +73,13 @@ class AddNoteView: UIView {
 		NSLayoutConstraint.activate(
 			[
 				addNoteButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-				addNoteButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -40),
-				addNoteButton.topAnchor.constraint(equalTo: topAnchor,constant: 15),
+				addNoteButton.topAnchor.constraint(equalTo: topAnchor,constant: 16),
 				addNoteButton.widthAnchor.constraint(equalToConstant: 25),
+				addNoteButton.heightAnchor.constraint(equalToConstant: 25),
 
 				totalNotesLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-				totalNotesLabel.centerYAnchor.constraint(equalTo: addNoteButton.centerYAnchor),
-		]
+				totalNotesLabel.centerYAnchor.constraint(equalTo: addNoteButton.centerYAnchor)
+			]
 		)
 	}
 }

@@ -10,6 +10,7 @@ import Foundation
 protocol AddNoteOutput: AnyObject {
 	func noteWasChange(note: Note)
 }
+
 class AddNotePresenter {
 
 	private var note: Note
@@ -20,14 +21,17 @@ class AddNotePresenter {
 		if let note = note {
 			self.note = note
 		} else {
-			self.note = Note(text: "")
+			self.note = Note(title: "", data: .now, id: UUID())
 		}
 	}
 }
 
+// MARK: - AddNoteOutputDelegate
+
 extension AddNotePresenter: AddNoteOutputDelegate {
+
 	func textDidChange(text: String) {
-		note.text = text
+		note.title = text
 	}
 
 	func viewWillDisappear() {
@@ -35,8 +39,9 @@ extension AddNotePresenter: AddNoteOutputDelegate {
 	}
 
 	func viewDidLoad() {
-		addNoteView?.updateView(text: note.text)
+		addNoteView?.updateView(text: note.title)
 	}
+
 	func doneButtonTapped() {
 		output?.noteWasChange(note: note)
 	}

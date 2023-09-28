@@ -5,14 +5,13 @@
 //  Created by Tinskrin on 05.03.2023.
 //
 
-import Foundation
 import UIKit
 
-protocol RouterInput {
+protocol NoteRouterInput {
 	func showAddNote(note: Note?, output: AddNoteOutput)
 }
 
-class Router: RouterInput {
+final class NoteRouter: NoteRouterInput {
 
 	weak var view: UIViewController?
 

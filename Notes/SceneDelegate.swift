@@ -16,13 +16,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		// If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
 		// This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 		guard let scene = (scene as? UIWindowScene) else { return }
-		let storage = Storage()
+		let storage = CoreDataManager()
 		let viewController = NotesListViewBuilder(storage: storage).build()
 		window = UIWindow(frame: scene.coordinateSpace.bounds)
 		window?.windowScene = scene
 		window?.rootViewController = UINavigationController(rootViewController: viewController)
 		window?.makeKeyAndVisible()
-		
 	}
 
 	func sceneDidDisconnect(_ scene: UIScene) {
@@ -53,7 +52,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		// to restore the scene back to its current state.
 
 		// Save changes in the application's managed object context when the application transitions to the background.
-		(UIApplication.shared.delegate as? AppDelegate)?.saveContext()
 	}
 
 

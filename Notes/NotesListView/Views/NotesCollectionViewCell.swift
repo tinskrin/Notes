@@ -7,24 +7,30 @@
 
 import UIKit
 
-class NotesCollectionViewCell: UICollectionViewCell {
+final class NotesCollectionViewCell: UICollectionViewCell {
 
+	static let reuseIdentifier = String(describing: NotesCollectionViewCell.self)
 
-	private let titleLabel: UILabel = {
-		let titleLabel = UILabel()
-		titleLabel.translatesAutoresizingMaskIntoConstraints = false
-		titleLabel.font = UIFont(name: "Arial-BoldMT", size: 30)
-		titleLabel.textColor = .white
-		return titleLabel
-	}()
+	//MARK: - UI
 
 	private let noteLabel: UILabel = {
 		let noteLabel = UILabel()
 		noteLabel.translatesAutoresizingMaskIntoConstraints = false
 		noteLabel.font = UIFont(name: "ArialMT ", size: 20)
-		noteLabel.textColor = .lightGray
+		noteLabel.numberOfLines = 1
+		noteLabel.textColor = .black
 		return noteLabel
 	}()
+
+	private let dateLabel: UILabel = {
+		let titleLabel = UILabel()
+		titleLabel.translatesAutoresizingMaskIntoConstraints = false
+		titleLabel.font = UIFont(name: "ArialMT", size: 10)
+		titleLabel.textColor = .lightGray
+		return titleLabel
+	}()
+
+	// MARK: - Init
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -37,26 +43,35 @@ class NotesCollectionViewCell: UICollectionViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	func configure(note: String) {
-		noteLabel.text = note
+	// MARK: - Configure
+
+	func configure(note: Note) {
+		noteLabel.text = note.title
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "dd.MM.yy"
+		let date = note.data
+		dateLabel.text = dateFormatter.string(from: date)
 	}
 
+	// MARK: - Private
+
 	private func setupView() {
-		contentView.addSubview(titleLabel)
 		contentView.addSubview(noteLabel)
+		contentView.addSubview(dateLabel)
 	}
 
 	private func setupConstraints() {
+		let margins: CGFloat = 8
 		NSLayoutConstraint.activate(
 			[
-				titleLabel.topAnchor.constraint(equalTo: topAnchor),
-				titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-				titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+				noteLabel.topAnchor.constraint(equalTo: topAnchor, constant: margins),
+				noteLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+				noteLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
 
-				noteLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
-				noteLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-				noteLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-				noteLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+				dateLabel.topAnchor.constraint(equalTo: noteLabel.bottomAnchor, constant: 5),
+				dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+				dateLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+				dateLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
 			]
 		)
 	}

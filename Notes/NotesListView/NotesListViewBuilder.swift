@@ -13,19 +13,20 @@ protocol NotesListViewBuilderProtocol: AnyObject {
 
 final class NotesListViewBuilder: NotesListViewBuilderProtocol {
 
-	var storage: StorageProtocol
+	private var storage: IStorageManager
 
+	// MARK: - Init
 
-	init(storage: StorageProtocol) {
+	init(storage: IStorageManager) {
 		self.storage = storage
 	}
-
+	
 	// MARK: - NotesListViewBuilderProtocol
 
 	func build() -> UIViewController {
-		let router = Router()
-		let presenter = Presenter(storage: storage, router: router)
-		let viewController = ViewController(presenter: presenter)
+		let router = NoteRouter()
+		let presenter = NotePresenter(storage: storage, router: router)
+		let viewController = AllNoteViewController(presenter: presenter)
 		router.view = viewController
 		presenter.view = viewController
 		return viewController
