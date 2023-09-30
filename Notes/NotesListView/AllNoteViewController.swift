@@ -16,7 +16,7 @@ protocol ViewOutputDelegate: AnyObject {
 	func numberOfItem() -> Int
 	func viewDidLoad()
 	func addNoteTapped()
-	func selectNoteCnahge(noteIndex: Int)
+	func selectNoteCnahge(note: Note)
 	func updateSearchText(newSearchText: String)
 }
 
@@ -158,7 +158,8 @@ extension AllNoteViewController: UISearchResultsUpdating {
 
 extension AllNoteViewController: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		presenter?.selectNoteCnahge(noteIndex: indexPath.row)
+		guard let note = dataSource.itemIdentifier(for: indexPath) else { return }
+		presenter?.selectNoteCnahge(note: note)
 	}
 }
 

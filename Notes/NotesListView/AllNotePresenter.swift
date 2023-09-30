@@ -45,8 +45,8 @@ final class AllNotePresenter {
 // MARK: - ViewOutputDelegate
 
 extension AllNotePresenter: ViewOutputDelegate {
-	func selectNoteCnahge(noteIndex: Int) {
-		router.showAddNote(note: viewModel[noteIndex], output: self)
+	func selectNoteCnahge(note: Note) {
+		router.showAddNote(note: note, output: self)
 	}
 
 	func viewDidLoad() {
