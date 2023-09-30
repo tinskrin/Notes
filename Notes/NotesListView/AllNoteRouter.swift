@@ -7,11 +7,11 @@
 
 import UIKit
 
-protocol NoteRouterInput {
+protocol AllNoteRouterInput {
 	func showAddNote(note: Note?, output: AddNoteOutput)
 }
 
-final class NoteRouter: NoteRouterInput {
+final class AllNoteRouter: AllNoteRouterInput {
 
 	weak var view: UIViewController?
 

@@ -17,6 +17,7 @@ protocol ViewOutputDelegate: AnyObject {
 	func viewDidLoad()
 	func addNoteTapped()
 	func selectNoteCnahge(noteIndex: Int)
+	func updateSearchText(newSearchText: String)
 }
 
 final class AllNoteViewController: UIViewController {
@@ -147,7 +148,10 @@ extension AllNoteViewController: ViewInputDelegate {
 // MARK: - UISearchResultsUpdating
 
 extension AllNoteViewController: UISearchResultsUpdating {
-	func updateSearchResults(for searchController: UISearchController) { }
+	func updateSearchResults(for searchController: UISearchController) {
+		guard let searchText = searchController.searchBar.text else { return }
+		presenter?.updateSearchText(newSearchText: searchText)
+	}
 }
 
 // MARK: - UICollectionViewDelegate

@@ -24,8 +24,8 @@ final class NotesListViewBuilder: NotesListViewBuilderProtocol {
 	// MARK: - NotesListViewBuilderProtocol
 
 	func build() -> UIViewController {
-		let router = NoteRouter()
-		let presenter = NotePresenter(storage: storage, router: router)
+		let router = AllNoteRouter()
+		let presenter = AllNotePresenter(storage: storage, router: router)
 		let viewController = AllNoteViewController(presenter: presenter)
 		router.view = viewController
 		presenter.view = viewController

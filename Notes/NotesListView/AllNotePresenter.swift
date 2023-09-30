@@ -7,14 +7,15 @@
 
 import Foundation
 
-final class NotePresenter {
+final class AllNotePresenter {
 
 	weak var view: ViewInputDelegate?
 	private var storage: IStorageManager
-	private let router: NoteRouterInput
+	private let router: AllNoteRouterInput
 	private var viewModel: [Note] = []
+	private var searchText: String = ""
 
-	init(storage: IStorageManager, router: NoteRouterInput) {
+	init(storage: IStorageManager, router: AllNoteRouterInput) {
 		self.storage = storage
 		self.router = router
 	}
@@ -25,7 +26,10 @@ final class NotePresenter {
 		guard let view = view else { return }
 		viewModel = convertData()
 		viewModel.sort(by: {$0.data > $1.data})
-		view.updateView(notes: viewModel)
+		let filteredViewModel = viewModel.filter { note in
+			return note.title.lowercased().contains(searchText.lowercased()) || searchText.isEmpty
+		}
+		view.updateView(notes: filteredViewModel)
 	}
 
 	private func convertData() -> [Note] {
@@ -40,7 +44,7 @@ final class NotePresenter {
 
 // MARK: - ViewOutputDelegate
 
-extension NotePresenter: ViewOutputDelegate {
+extension AllNotePresenter: ViewOutputDelegate {
 	func selectNoteCnahge(noteIndex: Int) {
 		router.showAddNote(note: viewModel[noteIndex], output: self)
 	}
@@ -61,11 +65,16 @@ extension NotePresenter: ViewOutputDelegate {
 	func addNoteTapped() {
 		router.showAddNote(note: nil, output: self)
 	}
+
+	func updateSearchText(newSearchText: String) {
+		searchText = newSearchText
+		updateList()
+	}
 }
 
 // MARK: - AddNoteOutput
 
-extension NotePresenter: AddNoteOutput {
+extension AllNotePresenter: AddNoteOutput {
 	func noteWasChange(note: Note) {
 		storage.updateNote(noteId: note.id, title: note.title)
 		updateList()
